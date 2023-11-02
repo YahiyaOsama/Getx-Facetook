@@ -113,6 +113,11 @@ class HomePage extends StatelessWidget {
                               ),
                               context: context,
                               builder: (c) {
+                                if (controller.isLoadingComments.value) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
                                 return Obx(
                                   () => Container(
                                     height: MediaQuery.sizeOf(context).height,

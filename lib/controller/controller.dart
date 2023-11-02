@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../data/repository.dart';
 import '../model/comment.dart';
@@ -10,6 +11,7 @@ class Controller extends GetxController {
   Controller(this._repository);
 
   RxBool isLoading = true.obs;
+  RxBool isLoadingComments = true.obs;
   Rx<List<Post>> postList = Rx<List<Post>>([]);
   Rx<List<Comment>> commentList = Rx<List<Comment>>([]);
 
@@ -27,11 +29,13 @@ class Controller extends GetxController {
               }
               postList.value = posts;
             } else {
-              Get.snackbar("Error", posts);
+              Get.snackbar("Error", "please check your internet connection",
+                  margin: const EdgeInsets.only(top: 10, right: 10, left: 10));
             }
           });
         } else {
-          Get.snackbar("Error", users);
+          Get.snackbar("Error", "please check your internet connection",
+              margin: const EdgeInsets.only(top: 10, right: 10, left: 10));
         }
         isLoading.value = false;
       });
@@ -42,8 +46,10 @@ class Controller extends GetxController {
       if (value is List<Comment>) {
         commentList.value = value;
       } else {
-        Get.snackbar("Error", value);
+        Get.snackbar("Error", "please check your internet connection",
+            margin: const EdgeInsets.only(top: 10, right: 10, left: 10));
       }
+      isLoadingComments.value = false ;
     });
   }
 

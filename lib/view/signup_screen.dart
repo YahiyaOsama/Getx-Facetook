@@ -81,7 +81,7 @@ class SignupScreen extends StatelessWidget {
                       textEditingController: confirmController,
                       text: 'Confirm Your password',
                       textInputType: TextInputType.visiblePassword,
-                      obscure: false,
+                      obscure: true,
                     ),
                     50.mh,
                     Container(

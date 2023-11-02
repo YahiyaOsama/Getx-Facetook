@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
+import 'package:october_assignment/view/res/strings_manager.dart';
 
 import '../controller/controller.dart';
 
@@ -11,10 +12,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Controller controller = Get.find();
-    controller.getUser();
     controller.fetchData();
-    Timer(const Duration(seconds: 10), () {
-      Get.offNamed('/home');
+    Timer(const Duration(seconds: 5), () {
+      Get.offNamed(StringsManager.homeRoute);
     });
     return Scaffold(
       backgroundColor: Colors.white,

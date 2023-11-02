@@ -11,32 +11,29 @@ class Controller extends GetxController {
 
   RxBool isLoading = true.obs;
   Rx<List<Post>> postList = Rx<List<Post>>([]);
-  Rx<List<User>> userList = Rx<List<User>>([]);
   Rx<List<Comment>> commentList = Rx<List<Comment>>([]);
 
-  void fetchData() => _repository.getPosts().then((value) {
-        if (value is List<Post>) {
-          postList.value = value;
-          postList.value.forEach((post) {
-            userList.value.forEach((user) {
-              if (post.userId == user.id) {
-                post.nameOfUser = user.name;
-                post.username = user.username;
+  void fetchData() => _repository.getUsers().then((users) {
+        if (users is List<User>) {
+          _repository.getPosts().then((posts) {
+            if (posts is List<Post>) {
+              for (var post in posts) {
+                for (var user in users) {
+                  if (post.userId == user.id) {
+                    post.nameOfUser = user.name;
+                    post.username = user.username;
+                  }
+                }
               }
-            });
+              postList.value = posts;
+            } else {
+              Get.snackbar("Error", posts);
+            }
           });
         } else {
-          Get.snackbar("Error", value);
+          Get.snackbar("Error", users);
         }
         isLoading.value = false;
-      });
-
-  void getUser() => _repository.getUsers().then((value) {
-        if (value is List<User>) {
-          userList.value = value;
-        } else {
-          Get.snackbar("Error", value);
-        }
       });
 
   void getComments(int postId) {

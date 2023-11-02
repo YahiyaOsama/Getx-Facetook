@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -45,7 +44,8 @@ class HomePage extends StatelessWidget {
                   borderSide: BorderSide(
                       color: i.isEven
                           ? ColorManager.primary.withOpacity(0.5)
-                          : ColorManager.blackColor.withOpacity(0.5), width: 1)),
+                          : ColorManager.blackColor.withOpacity(0.5),
+                      width: 1)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                             const TextStyle(color: Colors.black, fontSize: 20),
                         textAlign: TextAlign.start,
                       ),
-                      50.mw,
+                      60.mw,
                       Text(
                         '@${controller.postList.value[i].username}',
                         style: const TextStyle(
@@ -69,10 +69,16 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   ListTile(
-                    // trailing: Text("${homeController.postList.value[i].userId}"),
-                    title: Text(controller.postList.value[i].title),
+                    title: Text(
+                      controller.postList.value[i].title,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                      maxLines: 1,
+                    ),
                     subtitle: Text(
                       controller.postList.value[i].body,
+                      style: TextStyle(
+                          color: ColorManager.textColor.withOpacity(0.7),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   Obx(
@@ -80,14 +86,22 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomTextButton(
-                          text:
-                              "Like${controller.postList.value[i].isLiked.value ? 'd' : ''}",
+                          icon: controller.postList.value[i].isLiked.value
+                              ? Icon(Icons.favorite,
+                                  size: 25, color: Colors.red.withOpacity(0.7))
+                              : Icon(Icons.favorite_border_outlined,
+                                  size: 25,
+                                  color: ColorManager.primary.withOpacity(0.7)),
                           isLiked: controller.postList.value[i].isLiked.value,
                           onClickListener: () =>
                               controller.toggle(controller.postList.value[i]),
                         ),
                         CustomTextButton(
-                          text: "Comments",
+                          icon: Icon(
+                            Icons.comment,
+                            size: 25,
+                            color: ColorManager.primary.withOpacity(0.7),
+                          ),
                           isLiked: false,
                           onClickListener: () {
                             controller
